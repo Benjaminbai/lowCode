@@ -1,0 +1,35 @@
+.layout-wrapper {
+    height: 100%;
+
+    .ant-layout-header {
+        line-height    : unset;
+        overflow-y     : auto;
+        display        : flex;
+        justify-content: flex-end;
+        align-items    : center;
+    }
+
+    .layout-sider {
+        width: 200px;
+    }
+
+    .layout-content {
+        padding    : 0 50px;
+        height     : 100%;
+        padding-top: 10px;
+        overflow   : auto;
+
+        .layout-bread {
+            height       : 40px;
+            margin-bottom: 20px;
+        }
+    }
+
+    .layout-footer {
+        height: 100px;
+    }
+
+    :deep(.ant-layout-sider-trigger) {
+        position: relative;
+    }
+}
