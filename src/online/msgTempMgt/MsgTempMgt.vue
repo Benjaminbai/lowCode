@@ -112,7 +112,7 @@ import {
   Modal,
   Upload,
 } from "ant-design-vue";
-import { ref, reactive, onMounted, provide, createVNode, h } from "vue";
+import { ref, reactive, watchEffect, provide, createVNode, h } from "vue";
 import { DownOutlined, ExclamationCircleOutlined } from "@ant-design/icons-vue";
 
 import { Table } from "@/components";
@@ -197,7 +197,6 @@ const tableChangeHandler = (_pagination) => {
   pagination.value.current = current;
   pagination.value.pageSize = pageSize;
   pagination.value.total = total;
-  sysMessageTemplateList();
 };
 
 const sysMessageTemplateList = () => {
@@ -225,7 +224,6 @@ const sysMessageTemplateList = () => {
 const refreash = (val) => {
   formState.value = val;
   pagination.value.current = 1;
-  sysMessageTemplateList();
 };
 
 const addHandler = () => {
@@ -330,9 +328,9 @@ const handleChange = (info) => {
   }
 };
 
-MsgTempContext.value.sysMessageTemplateList = sysMessageTemplateList;
-
-onMounted(() => {
+watchEffect(() => {
   sysMessageTemplateList();
 });
+
+MsgTempContext.value.sysMessageTemplateList = sysMessageTemplateList;
 </script>

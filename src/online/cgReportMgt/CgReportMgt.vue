@@ -92,7 +92,7 @@ import {
   Space,
 } from "ant-design-vue";
 import { DownOutlined, ExclamationCircleOutlined } from "@ant-design/icons-vue";
-import { reactive, ref, onMounted, createVNode } from "vue";
+import { reactive, ref, createVNode, watchEffect } from "vue";
 
 import { Table } from "@/components";
 import Edit from "./edit/Edit.vue";
@@ -170,10 +170,6 @@ const rowSelection = {
   },
 };
 
-onMounted(() => {
-  cgreportHeadList();
-});
-
 const cgreportHeadList = () => {
   const params = {
     column: "createTime",
@@ -202,18 +198,15 @@ const tableChangeHandler = (_pagination) => {
   pagination.value.current = current;
   pagination.value.pageSize = pageSize;
   pagination.value.total = total;
-  cgreportHeadList();
 };
 
 const onFinish = () => {
   pagination.value.current = 1;
-  cgreportHeadList();
 };
 
 const resetForm = () => {
   formRef.value.resetFields();
   pagination.value.current = 1;
-  cgreportHeadList();
 };
 
 const deleteHandler = (record) => {
@@ -281,6 +274,10 @@ const setOpen = () => {
   open.value = false;
   cgreportHeadList();
 };
+
+watchEffect(() => {
+  cgreportHeadList();
+});
 </script>
 <style scoped>
 .more-action-icon {

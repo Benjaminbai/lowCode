@@ -29,7 +29,7 @@
 
 <script setup>
 import { message, Modal } from "ant-design-vue";
-import { reactive, ref, inject, onMounted } from "vue";
+import { reactive, ref, inject, watchEffect } from "vue";
 
 import { Table } from "@/components";
 import { sysUserListApi, sysUserAddSysUserRoleApi } from "../api";
@@ -86,7 +86,6 @@ const tableChangeHandler = (_pagination) => {
   pagination.value.current = current;
   pagination.value.pageSize = pageSize;
   pagination.value.total = total;
-  sysUserList();
 };
 
 const sysUserList = () => {
@@ -115,7 +114,6 @@ const sysUserList = () => {
 const refreash = (val) => {
   formState.value = val;
   pagination.value.current = 1;
-  sysUserList();
 };
 
 const sysUserAddSysUserRole = () => {
@@ -134,7 +132,7 @@ const sysUserAddSysUserRole = () => {
   });
 };
 
-onMounted(() => {
+watchEffect(() => {
   sysUserList();
 });
 </script>

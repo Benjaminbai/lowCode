@@ -51,7 +51,7 @@
 
 <script setup>
 import { Space, Button, message, Modal } from "ant-design-vue";
-import { ref, reactive, onMounted, createVNode } from "vue";
+import { ref, reactive, watchEffect, createVNode } from "vue";
 import { ExclamationCircleOutlined } from "@ant-design/icons-vue";
 
 import Query from "./query/Query.vue";
@@ -164,7 +164,6 @@ const sysGetMyAnnouncementSend = () => {
 const refreash = (val) => {
   formState.value = val;
   pagination.value.current = 1;
-  sysGetMyAnnouncementSend();
 };
 
 const viewHandler = (record) => {
@@ -196,7 +195,7 @@ const confirmHandler = () => {
   });
 };
 
-onMounted(() => {
+watchEffect(() => {
   sysGetMyAnnouncementSend();
 });
 </script>

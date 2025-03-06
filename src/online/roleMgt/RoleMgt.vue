@@ -79,7 +79,7 @@ import {
   Upload,
 } from "ant-design-vue";
 import { DownOutlined, ExclamationCircleOutlined } from "@ant-design/icons-vue";
-import { onMounted, provide, reactive, ref, createVNode, h } from "vue";
+import { watchEffect, provide, reactive, ref, createVNode, h } from "vue";
 
 import { Table } from "@/components";
 import Query from "./query/Query.vue";
@@ -214,7 +214,6 @@ const sysRoleList = () => {
 const refreash = (val) => {
   formState.value = val;
   pagination.value.current = 1;
-  sysRoleList();
 };
 
 const userHandler = (record) => {
@@ -259,9 +258,9 @@ const authorizeHandler = (record) => {
   RoleContext.value.record = record;
 };
 
-RoleContext.value.sysRoleList = sysRoleList;
-
-onMounted(() => {
+watchEffect(() => {
   sysRoleList();
 });
+
+RoleContext.value.sysRoleList = sysRoleList;
 </script>

@@ -78,7 +78,7 @@ import {
   Modal,
   Upload,
 } from "ant-design-vue";
-import { ref, reactive, onMounted, provide, createVNode, h } from "vue";
+import { ref, reactive, watchEffect, provide, createVNode, h } from "vue";
 import { DownOutlined, ExclamationCircleOutlined } from "@ant-design/icons-vue";
 
 import { Table } from "@/components";
@@ -155,7 +155,6 @@ const tableChangeHandler = (_pagination) => {
   pagination.value.current = current;
   pagination.value.pageSize = pageSize;
   pagination.value.total = total;
-  sysDictList();
 };
 
 const sysDictList = () => {
@@ -184,7 +183,6 @@ const sysDictList = () => {
 const refreash = (val) => {
   formState.value = val;
   pagination.value.current = 1;
-  sysDictList();
 };
 
 const addHandler = () => {
@@ -319,7 +317,7 @@ const handleChange = (info) => {
 
 provide("DictContext", DictContext);
 
-onMounted(() => {
+watchEffect(() => {
   sysDictList();
-});
+})
 </script>

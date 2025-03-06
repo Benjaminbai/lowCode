@@ -17,7 +17,7 @@
         <Upload
           name="file"
           :action="sysUserImportExcelApi.url"
-          :headers="{'X-Access-Token': TOKEN}"
+          :headers="{ 'X-Access-Token': TOKEN }"
           :showUploadList="false"
           @change="handleChange"
         >
@@ -125,7 +125,7 @@ import {
   Upload,
 } from "ant-design-vue";
 import { DownOutlined, ExclamationCircleOutlined } from "@ant-design/icons-vue";
-import { onMounted, provide, reactive, ref, createVNode, h } from "vue";
+import { watchEffect, provide, reactive, ref, createVNode, h } from "vue";
 
 import { Table } from "@/components";
 import Query from "./query/Query.vue";
@@ -247,7 +247,6 @@ const sysUserListAll = () => {
 const refreash = (val) => {
   formState.value = val;
   pagination.value.current = 1;
-  sysUserListAll();
 };
 
 const addHandler = () => {
@@ -387,9 +386,9 @@ const sysUserExportXls = () => {
   sysUserExportXlsApi(params, "用户列表.xls");
 };
 
-UserContext.value.sysUserListAll = sysUserListAll;
-
-onMounted(() => {
+watchEffect(() => {
   sysUserListAll();
 });
+
+UserContext.value.sysUserListAll = sysUserListAll;
 </script>

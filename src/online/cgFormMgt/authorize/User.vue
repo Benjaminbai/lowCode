@@ -13,7 +13,7 @@
 
 <script setup>
 import { Table, message } from "ant-design-vue";
-import { inject, onMounted, ref } from "vue";
+import { inject, ref } from "vue";
 
 import { sysUserListApi } from "../api";
 
@@ -67,10 +67,9 @@ const tableChangeHandler = (_pagination) => {
   pagination.value.current = current;
   pagination.value.pageSize = pageSize;
   pagination.value.total = total;
-  sysUserList();
 };
 
-onMounted(() => {
+watchEffect(() => {
   sysUserList();
 });
 </script>

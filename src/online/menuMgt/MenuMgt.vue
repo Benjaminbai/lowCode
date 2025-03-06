@@ -89,7 +89,7 @@ import {
   Popconfirm,
 } from "ant-design-vue";
 import { DownOutlined } from "@ant-design/icons-vue";
-import { ref, reactive, onMounted } from "vue";
+import { ref, reactive, watchEffect } from "vue";
 
 import { Table } from "@/components";
 import Edit from "./Edit.vue";
@@ -175,7 +175,7 @@ const addSubHandler = (_record) => {
 
 const editHandler = (_record) => {
   open.value = true;
-  record.value = {..._record};
+  record.value = { ..._record };
 };
 
 const setOpen = () => {
@@ -202,7 +202,6 @@ const sysPermissionList = () => {
 
 const resetHandler = () => {
   formRef.value.resetFields();
-  sysPermissionList();
 };
 
 const confirmDeleteHandler = (record) => {
@@ -224,7 +223,7 @@ const confirmDeleteHandler = (record) => {
     });
 };
 
-onMounted(() => {
+watchEffect(() => {
   sysPermissionList();
 });
 </script>

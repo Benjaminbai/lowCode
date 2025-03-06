@@ -105,7 +105,7 @@ import {
   Radio,
 } from "ant-design-vue";
 import { DownOutlined, ExclamationCircleOutlined } from "@ant-design/icons-vue";
-import { onMounted, reactive, ref, createVNode, h } from "vue";
+import { reactive, ref, createVNode, h, watchEffect } from "vue";
 
 import { Table } from "@/components";
 import Edit from "./edit/Edit.vue";
@@ -205,10 +205,6 @@ const buttonHandler = (record) => {
   headInfo.value = record;
 };
 
-onMounted(() => {
-  cgformHeadList();
-});
-
 const setOpen = () => {
   open.value = false;
   cgformHeadList();
@@ -244,8 +240,6 @@ const cgformHeadList = () => {
     loading.value = false;
     if (res.success) {
       dataConfig.dataSource = res.result.records;
-      pagination.value.current = res.result.current;
-      pagination.value.pageSize = res.result.size;
       pagination.value.total = res.result.total;
     } else {
       messageApi.error(res.message);
@@ -312,7 +306,6 @@ const tableChangeHandler = (_pagination) => {
   pagination.value.current = current;
   pagination.value.pageSize = pageSize;
   pagination.value.total = total;
-  cgformHeadList();
 };
 
 const copyHandler = (record) => {
@@ -419,13 +412,16 @@ const rightHandler = (record) => {
 const refreash = (val) => {
   formState.value = val;
   pagination.value.current = 1;
-  cgformHeadList();
 };
 
 const authorizeHandler = (record) => {
   openAuthorize.value = true;
   headInfo.value = record;
 };
+
+watchEffect(() => {
+  cgformHeadList();
+});
 </script>
 <style>
 .cgform-wrapper {
